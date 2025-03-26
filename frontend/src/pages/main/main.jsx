@@ -21,7 +21,7 @@ const MainContainer = ({ className }) => {
 			setLastPage(lastPage);
 		});
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [, page, shouldSearch]);
+	}, [page, shouldSearch]);
 
 	const startDelayedSearch = useMemo(() => debounce(setShouldSearch, 2000), []);
 
