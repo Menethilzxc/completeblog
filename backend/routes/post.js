@@ -26,16 +26,9 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
-  try {
-    const post = await getPost(req.params.id);
-    if (!post) {
-      return res.status(404).send({ error: "Post not found" });
-    }
-    res.send({ data: mapPost(post) });
-  } catch (error) {
-    console.error("Error fetching post:", error);
-    res.status(500).send({ error: "Internal server error" });
-  }
+  const post = await getPost(req.params.id);
+
+  res.send({ data: mapPost(post) });
 });
 
 router.post("/:id/comments", authenticated, async (req, res) => {
@@ -59,17 +52,13 @@ router.delete(
 );
 
 router.post("/", authenticated, hasRole([ROLES.ADMIN]), async (req, res) => {
-  try {
-    const newPost = await addPost({
-      title: req.body.title,
-      content: req.body.content,
-      image: req.body.imageUrl,
-    });
-    res.send({ data: mapPost(newPost) });
-  } catch (error) {
-    console.error("Error adding post:", error);
-    res.status(500).send({ error: "Internal server error" });
-  }
+  const newPost = await addPost({
+    title: req.body.title,
+    content: req.body.content,
+    image: req.body.imageUrl,
+  });
+
+  res.send({ data: mapPost(newPost) });
 });
 
 router.patch(

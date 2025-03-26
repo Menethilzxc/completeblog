@@ -21,7 +21,7 @@ app.use(
 app.use(cookieParser());
 app.use(express.json());
 
-app.use("/api", routes);
+app.use("/", routes);
 
 mongoose.connect(MONGO_URL).then(() => {
   app.listen(port, () => {
