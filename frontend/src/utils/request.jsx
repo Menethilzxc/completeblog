@@ -1,5 +1,5 @@
-export const request = (url, method, data) => {
-	return fetch(url, {
+export const request = (path, method, data) => {
+	return fetch('/api' + path, {
 		headers: {
 			'content-type': 'application/json',
 		},
