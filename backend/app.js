@@ -21,7 +21,12 @@ app.use(
 app.use(cookieParser());
 app.use(express.json());
 
-app.use("/api", routes);
+app.use((req, res, next) => {
+  console.log("Incoming request:", req.method, req.originalUrl);
+  next();
+});
+
+app.use(routes);
 
 app.get("*", (req, res) => {
   res.sendFile(path.resolve("..", "frontend", "build", "index.html"));
